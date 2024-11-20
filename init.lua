@@ -298,9 +298,7 @@ require('lazy').setup({
         defaults = {
           mappings = {
             -- i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-            n = {
-              ['bd'] = require('telescope.actions').delete_buffer,
-            },
+            n = { ['dd'] = require('telescope.actions').delete_buffer },
           },
         },
         -- pickers = {}

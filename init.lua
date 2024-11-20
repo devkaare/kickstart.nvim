@@ -299,7 +299,7 @@ require('lazy').setup({
           mappings = {
             -- i = { ['<c-enter>'] = 'to_fuzzy_refine' },
             n = {
-              ['dd'] = require('telescope.actions').delete_buffer,
+              ['bd'] = require('telescope.actions').delete_buffer,
             },
           },
         },
@@ -821,14 +821,14 @@ require('lazy').setup({
           width_preview = 30,
         },
       }
-      -- Keymaps for mini.files
+
       vim.keymap.set('n', '<leader>mf', function()
         require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
-      end, { desc = 'Open mini.files (Directory of Current File)' })
+      end, { desc = 'Open [M]ini [F]iles (Directory of Current File)' })
 
       vim.keymap.set('n', '<leader>mF', function()
         require('mini.files').open(vim.uv.cwd(), true)
-      end, { desc = 'Open mini.files (cwd)' })
+      end, { desc = 'Open [M]ini [F]iles (cwd)' })
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim

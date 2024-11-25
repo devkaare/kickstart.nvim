@@ -25,9 +25,9 @@ vim.opt.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
--- vim.schedule(function()
-vim.opt.clipboard = 'unnamedplus'
--- end)
+vim.schedule(function()
+  vim.opt.clipboard = 'unnamedplus'
+end)
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -540,6 +540,7 @@ require('lazy').setup({
         -- clangd = {},
         gopls = {},
         templ = {},
+        html = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -634,6 +635,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         go = { 'gopls' },
+        templ = { 'templ' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -818,6 +820,9 @@ require('lazy').setup({
           width_focus = 30,
           width_preview = 30,
         },
+        -- options = {
+        --   use_as_default_explorer = true,
+        -- },
       }
 
       vim.keymap.set('n', '<leader>mf', function()

@@ -301,7 +301,11 @@ require('lazy').setup({
             n = { ['dd'] = require('telescope.actions').delete_buffer },
           },
         },
-        -- pickers = {}
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -534,6 +538,7 @@ require('lazy').setup({
       --  - cmd (table): Override the default command used to start the server
       --  - filetypes (table): Override the default list of associated filetypes for the server
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
+      capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
@@ -636,6 +641,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         go = { 'gopls' },
         templ = { 'templ' },
+        docker = { 'dockerfile-language-server', 'docker-compose-language-server', stop_after_first = true },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --

@@ -820,25 +820,6 @@ require('lazy').setup({
         return '%2l:%-2v'
       end
 
-      require('mini.files').setup {
-        windows = {
-          preview = true,
-          width_focus = 30,
-          width_preview = 30,
-        },
-        -- options = {
-        --   use_as_default_explorer = true,
-        -- },
-      }
-
-      vim.keymap.set('n', '<leader>mf', function()
-        require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
-      end, { desc = 'Open [M]ini [F]iles (Directory of Current File)' })
-
-      vim.keymap.set('n', '<leader>mF', function()
-        require('mini.files').open(vim.uv.cwd(), true)
-      end, { desc = 'Open [M]ini [F]iles (cwd)' })
-
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
@@ -882,7 +863,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`

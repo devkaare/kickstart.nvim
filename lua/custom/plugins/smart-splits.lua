@@ -1,4 +1,4 @@
-return { -- Adds support for Wezterm panes
+return {
   'mrjones2014/smart-splits.nvim',
   config = function()
     local smart_splits = require 'smart-splits'

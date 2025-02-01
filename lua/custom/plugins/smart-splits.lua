@@ -6,11 +6,11 @@ return {
     -- recommended mappings
     -- resizing splits
     -- these keymaps will also accept a range,
-    -- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
-    vim.keymap.set('n', '<A-h>', smart_splits.resize_left)
-    vim.keymap.set('n', '<A-j>', smart_splits.resize_down)
-    vim.keymap.set('n', '<A-k>', smart_splits.resize_up)
-    vim.keymap.set('n', '<A-l>', smart_splits.resize_right)
+    -- for example `10<C-S-h>` will `resize_left` by `(10 * config.default_amount)`
+    vim.keymap.set('n', '<C-S-h>', smart_splits.resize_left)
+    vim.keymap.set('n', '<C-S-j>', smart_splits.resize_down)
+    vim.keymap.set('n', '<C-S-k>', smart_splits.resize_up)
+    vim.keymap.set('n', '<C-S-l>', smart_splits.resize_right)
     -- moving between splits
     vim.keymap.set('n', '<C-h>', smart_splits.move_cursor_left)
     vim.keymap.set('n', '<C-j>', smart_splits.move_cursor_down)

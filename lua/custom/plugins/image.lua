@@ -1,6 +1,7 @@
 return {
   {
     '3rd/image.nvim',
+    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
       backend = 'kitty',
       processor = 'magick_rock', -- or "magick_cli"

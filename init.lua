@@ -58,6 +58,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then

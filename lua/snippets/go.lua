@@ -1,0 +1,328 @@
+local ls = require 'luasnip'
+-- some shorthands...
+local snip = ls.snippet
+local text = ls.text_node
+local insert = ls.insert_node
+local func = ls.function_node
+
+ls.add_snippets('go', {
+  snip('ife', {
+    text {
+      'if err != nil {',
+      '    return err',
+      '}',
+    },
+  }),
+
+  snip('ifel', {
+    text {
+      'if err != nil {',
+      '    log.Fatal(err)',
+      '}',
+    },
+  }),
+
+  snip('ifew', {
+    text 'if err != nil {',
+    text { '', '    return fmt.Errorf("failed to ' },
+    insert(1, 'message'),
+    text ': %w", err)',
+    text { '', '}' },
+  }),
+
+  snip('ifec', {
+    text 'if err := ',
+    insert(1, 'doSomething()'),
+    text { '; err != nil {', '    return err', '}' },
+  }),
+
+  snip('ifecl', {
+    text 'if err := ',
+    insert(1, 'doSomething()'),
+    text { '; err != nil {', '    log.Fatal(err)', '}' },
+  }),
+
+  snip('strct', {
+    text 'type ',
+    insert(1, 'Name'),
+    text ' struct {',
+    text { '', '    ' },
+    insert(2, 'Field type'),
+    text { '', '}' },
+  }),
+
+  snip('jsonf', {
+    insert(1, 'FieldName'),
+    text ' ',
+    insert(2, 'type'),
+    text ' `json:"',
+    func(function(args)
+      return { args[1][1]:gsub('^%u', string.lower) }
+    end, { 1 }),
+    text '"`',
+  }),
+
+  snip('tfn', {
+    text 'func Test',
+    insert(1, 'Name'),
+    text '(t *testing.T) {',
+    text { '', '    ' },
+    insert(2),
+    text { '', '}' },
+  }),
+
+  snip('httph', {
+    text 'func ',
+    insert(1, 'HandlerName'),
+    text '(w http.ResponseWriter, r *http.Request) {',
+    text { '', '    ' },
+    insert(2, 'w.Write([]byte("OK"))'),
+    text { '', '}' },
+  }),
+
+  snip('ctx', {
+    text 'ctx, cancel := context.WithTimeout(context.Background(), ',
+    insert(1, '5*time.Second'),
+    text ')',
+    text { '', 'defer cancel()' },
+  }),
+
+  snip('respjson', {
+    text 'w.Header().Set("Content-Type", "application/json")',
+    text { '', 'json.NewEncoder(w).Encode(' },
+    insert(1, 'data'),
+    text ')',
+  }),
+
+  snip('p', {
+    text 'fmt.Println(',
+    insert(1),
+    text ')',
+  }),
+
+  snip('pf', {
+    text 'fmt.Printf("',
+    insert(1, '%v'),
+    text '", ',
+    insert(2),
+    text ')',
+  }),
+
+  snip('main', {
+    text {
+      'package main',
+      '',
+      'import "fmt"',
+      '',
+      'func main() {',
+      '    fmt.Println("Hello World!") ',
+      '}',
+    },
+  }),
+
+  snip('chi', {
+    text {
+      'package main',
+      '',
+      'import (',
+      '    "net/http"',
+      '',
+      '    "github.com/go-chi/chi/v5"',
+      '    "github.com/go-chi/chi/v5/middleware"',
+      ')',
+      '',
+      'func main() {',
+      '    r := chi.NewRouter()',
+      '    r.Use(middleware.Logger)',
+      '    r.Get("/", func(w http.ResponseWriter, r *http.Request) {',
+      '        w.Write([]byte("Hello World!"))',
+      '    })',
+      '    http.ListenAndServe(":4000", r)',
+      '}',
+    },
+  }),
+
+  snip('pg', {
+    text {
+      'package main',
+      '',
+      'import (',
+      '        "database/sql"',
+      '        "fmt"',
+      '        "log"',
+      '        "os"',
+      '',
+      '        _ "github.com/jackc/pgx/v5/stdlib"',
+      '        _ "github.com/joho/godotenv/autoload"',
+      ')',
+      '',
+      'var (',
+      '        database = os.Getenv("DB_DATABASE")',
+      '        password = os.Getenv("DB_PASSWORD")',
+      '        username = os.Getenv("DB_USERNAME")',
+      '        port     = os.Getenv("DB_PORT")',
+      '        host     = os.Getenv("DB_HOST")',
+      '        schema   = os.Getenv("DB_SCHEMA")',
+      ')',
+      '',
+      'func main() {',
+      '        connStr := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable&TimeZone=UTC&search_path=%s", username, password, host, port, database, schema)',
+      '        db, err := sql.Open("pgx", connStr)',
+      '        if err != nil {',
+      '                log.Fatalf("failed to conn to db: %v", err)',
+      '                return',
+      '        }',
+      '',
+      '        if err := db.Ping(); err != nil {',
+      '                log.Fatalf("failed to ping db: %v", err)',
+      '        }',
+      '}',
+    },
+  }),
+
+  snip('create', {
+    text 'func (r *Repo) Create',
+    insert(1, 'Entity'),
+    text '(',
+    insert(2, 'params'),
+    text ') error {',
+    text { '', '    query := "INSERT INTO ' },
+    insert(3, 'table'),
+    text ' (',
+    insert(4, 'columns'),
+    text ') VALUES (',
+    insert(5, '$1, $2'),
+    text ')"',
+    text { '', '    _, err := r.Client.Exec(query, ' },
+    insert(6, 'args'),
+    text ')',
+    text { '', '    return err', '}' },
+  }),
+
+  snip('getall', {
+    text { 'func (r *Repo) GetAll' },
+    insert(1, 'Entities'),
+    text { '() ([]' },
+    insert(2, 'Entity'),
+    text { ', error) {', '    query := "SELECT ' },
+    insert(3, 'columns'),
+    text ' FROM ',
+    insert(4, 'table'),
+    text { '"', '    rows, err := r.Client.Query(query)' },
+    text { '', '    if err != nil {', '        return nil, err', '    }', '', '    defer rows.Close()', '', '    var results []' },
+    insert(5, 'Entity'),
+    text { '', '    for rows.Next() {' },
+    text { '        var e ' },
+    insert(6, 'Entity'),
+    text { '', '        if err := rows.Scan(' },
+    insert(7, '&e.Field1, &e.Field2'),
+    text {
+      '); err != nil {',
+      '            return nil, err',
+      '        }',
+      '        results = append(results, e)',
+      '    }',
+      '',
+      '    if err := rows.Err(); err != nil {',
+      '        return nil, err',
+      '    }',
+      '',
+      '    return results, nil',
+      '}',
+    },
+  }),
+
+  snip('get', {
+    text 'func (r *Repo) Get',
+    insert(1, 'Entity'),
+    text '(',
+    insert(2, 'id string'),
+    text ') (',
+    insert(3, 'Entity'),
+    text ', error) {',
+    text { '', '    query := "SELECT ' },
+    insert(4, 'columns'),
+    text ' FROM ',
+    insert(5, 'table'),
+    text ' WHERE ',
+    insert(6, 'id = $1'),
+    text '"',
+    text { '', '    var e ' },
+    insert(7, 'Entity'),
+    text { '', '    err := r.Client.QueryRow(query, ' },
+    insert(8, 'id'),
+    text ').Scan(',
+    insert(9, '&e.Field1, &e.Field2'),
+    text ')',
+    text { '', '    return e, err', '}' },
+  }),
+
+  snip('update', {
+    text 'func (r *Repo) Update',
+    insert(1, 'Entity'),
+    text '(',
+    insert(2, 'params'),
+    text ') error {',
+    text { '', '    query := "UPDATE ' },
+    insert(3, 'table'),
+    text ' SET ',
+    insert(4, 'field1 = $1, field2 = $2'),
+    text ' WHERE ',
+    insert(5, 'id = $3'),
+    text '"',
+    text { '', '    _, err := r.Client.Exec(query, ' },
+    insert(6, 'args'),
+    text ')',
+    text { '', '    return err', '}' },
+  }),
+
+  snip('delete', {
+    text 'func (r *Repo) Delete',
+    insert(1, 'Entity'),
+    text '(',
+    insert(2, 'id string'),
+    text ') error {',
+    text { '', '    query := "DELETE FROM ' },
+    insert(3, 'table'),
+    text ' WHERE ',
+    insert(4, 'id = $1'),
+    text '"',
+    text { '', '    _, err := r.Client.Exec(query, ' },
+    insert(5, 'id'),
+    text ')',
+    text { '', '    return err', '}' },
+  }),
+
+  snip('mk', {
+    text {
+      'run:',
+      '\t@go run main.go',
+      '',
+      'docker-build:',
+      '\t@docker build -t app .',
+      '',
+      'docker-run:',
+      '\t@docker run -p 4000:4000 app',
+      '',
+      '.PHONY: run docker-build docker-run',
+    },
+  }),
+
+  snip('docker', {
+    text {
+      'FROM golang:1.23',
+      '',
+      'WORKDIR /app',
+      '',
+      'COPY go.mod go.sum ./',
+      'RUN go mod download',
+      '',
+      'COPY . .',
+      '',
+      'RUN CGO_ENABLED=0 GOOS=linux go build -o main',
+      '',
+      'EXPOSE 4000',
+      'CMD ["./main"]',
+    },
+  }),
+})

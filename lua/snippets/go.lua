@@ -95,9 +95,9 @@ ls.add_snippets('go', {
   }),
 
   snip('p', {
-    text 'fmt.Println(',
+    text 'fmt.Println("',
     insert(1),
-    text ')',
+    text '")',
   }),
 
   snip('pf', {

@@ -95,9 +95,9 @@ ls.add_snippets('go', {
   }),
 
   snip('p', {
-    text 'fmt.Println("',
+    text 'fmt.Println(',
     insert(1),
-    text '")',
+    text ')',
   }),
 
   snip('pf', {
@@ -296,7 +296,7 @@ ls.add_snippets('go', {
   snip('mk', {
     text {
       'run:',
-      '\t@go run main.go',
+      '\t@go run .',
       '',
       'docker-build:',
       '\t@docker build -t app .',

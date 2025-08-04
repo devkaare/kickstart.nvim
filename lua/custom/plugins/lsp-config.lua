@@ -106,6 +106,7 @@ return {
         gopls = {},
         templ = {},
         html = {},
+        pyright = {},
         lua_ls = {
           settings = {
             Lua = {
